@@ -4,5 +4,5 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/edu-reach/",
+  // base: "/edu-reach/", // uncomment for GitHub Pages deployment
 });
