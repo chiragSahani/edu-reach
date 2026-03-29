@@ -13,7 +13,7 @@ export default function Input({ label, icon, error, className = "", id, ...props
   return (
     <div>
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           {label}
         </label>
       )}
@@ -25,8 +25,8 @@ export default function Input({ label, icon, error, className = "", id, ...props
         )}
         <input
           id={inputId}
-          className={`w-full ${icon ? "pl-10" : "pl-4"} pr-4 py-3 border rounded-lg focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-colors duration-200 ${
-            error ? "border-red-400 focus:border-red-500 focus:ring-red-500" : "border-gray-200"
+          className={`w-full ${icon ? "pl-10" : "pl-4"} pr-4 py-3 border rounded-lg focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-colors duration-200 bg-white dark:bg-gray-800 dark:text-white ${
+            error ? "border-red-400 focus:border-red-500 focus:ring-red-500" : "border-gray-200 dark:border-gray-600"
           } ${className}`}
           aria-invalid={error ? true : undefined}
           aria-describedby={errorId}

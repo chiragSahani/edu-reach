@@ -47,7 +47,7 @@ export default function SignupPage() {
       const data = await registerUser({ name, email, password, phone: phone || undefined });
       login(data.token);
       toast.success("Account created! Welcome to EduReach.");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err: unknown) {
       const message = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || "Registration failed";
       toast.error(message);
@@ -60,7 +60,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex">
       {/* Left - Form */}
       <motion.div
-        className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-cream"
+        className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-cream dark:bg-gray-900"
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
@@ -71,8 +71,8 @@ export default function SignupPage() {
             <span className="text-sm">Back to Home</span>
           </Link>
 
-          <h1 className="font-heading text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-          <p className="text-gray-500 mb-8">Join EduReach for unlimited access to AI chat &amp; counseling calls</p>
+          <h1 className="font-heading text-3xl font-bold text-gray-900 dark:text-white mb-2">Create Account</h1>
+          <p className="text-gray-500 dark:text-gray-400 mb-8">Join EduReach for unlimited access to AI chat &amp; counseling calls</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input

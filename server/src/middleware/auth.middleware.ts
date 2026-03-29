@@ -45,3 +45,19 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction): void =
 };
 
 export default authMiddleware;
+
+// Optional auth — attaches user if token present, but doesn't reject unauthenticated requests
+export const optionalAuth = (req: Request, _res: Response, next: NextFunction): void => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader?.startsWith("Bearer ")) {
+      const token = authHeader.split(" ")[1];
+      if (token) {
+        req.user = verifyToken(token);
+      }
+    }
+  } catch {
+    // Ignore invalid tokens — user simply won't be set
+  }
+  next();
+};

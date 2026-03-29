@@ -37,7 +37,7 @@ export default function LoginPage() {
       const data = await loginUser({ email, password });
       login(data.token);
       toast.success("Welcome back!");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err: unknown) {
       const message = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || "Login failed";
       toast.error(message);
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
       {/* Right - Form */}
       <motion.div
-        className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-cream"
+        className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-cream dark:bg-gray-900"
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
@@ -73,8 +73,8 @@ export default function LoginPage() {
             <span className="text-sm">Back to Home</span>
           </Link>
 
-          <h1 className="font-heading text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-500 mb-8">Sign in to your EduReach account</p>
+          <h1 className="font-heading text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome Back</h1>
+          <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to your EduReach account</p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <Input

@@ -66,7 +66,7 @@ export default function Modal({ open, onClose, children, maxWidth = "max-w-md" }
             role="dialog"
             aria-modal="true"
             tabIndex={-1}
-            className={`bg-white rounded-2xl shadow-2xl ${maxWidth} w-full relative outline-none`}
+            className={`bg-white dark:bg-gray-800 rounded-2xl shadow-2xl ${maxWidth} w-full relative outline-none`}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -74,7 +74,7 @@ export default function Modal({ open, onClose, children, maxWidth = "max-w-md" }
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200 z-10"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 z-10"
               aria-label="Close dialog"
             >
               <X className="w-5 h-5" />

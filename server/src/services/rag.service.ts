@@ -2,7 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage, AIMessage } from "@langchain/core/messages";
+import type { BaseMessage } from "@langchain/core/messages";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,7 +34,15 @@ export const initializeKnowledgeBase = async (): Promise<void> => {
   knowledgeBaseReady = true;
 };
 
-export const getRAGResponse = async (question: string): Promise<string> => {
+interface ChatHistory {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export const getRAGResponse = async (
+  question: string,
+  history: ChatHistory[] = [],
+): Promise<string> => {
   if (!knowledgeBaseReady) {
     return "The knowledge base is still initializing. Please try again in a moment, or click 'Talk to Us' to speak with a counselor.";
   }
@@ -53,10 +62,21 @@ If not found, say: "I don't have that info. Contact admissions@edureach.edu.in o
       maxTokens: 512,
     });
 
-    const response = await model.invoke([
-      new SystemMessage(systemPrompt),
-      new HumanMessage(question),
-    ]);
+    const messages: BaseMessage[] = [new SystemMessage(systemPrompt)];
+
+    // Add conversation history (last 10 messages for context)
+    const recentHistory = history.slice(-10);
+    for (const msg of recentHistory) {
+      if (msg.role === "user") {
+        messages.push(new HumanMessage(msg.content));
+      } else {
+        messages.push(new AIMessage(msg.content));
+      }
+    }
+
+    messages.push(new HumanMessage(question));
+
+    const response = await model.invoke(messages);
 
     const content = response.content;
     if (typeof content === "string" && content.trim()) {
