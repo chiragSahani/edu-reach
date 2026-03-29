@@ -1,5 +1,4 @@
 services:
-  # Backend API
   - type: web
     name: edu-reach-api
     runtime: node
@@ -27,11 +26,8 @@ services:
       - key: VAPI_ASSISTANT_ID
         sync: false
 
-  # Frontend Static Site
-  - type: web
-    name: edu-reach
-    runtime: static
-    plan: free
+staticSites:
+  - name: edu-reach
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
